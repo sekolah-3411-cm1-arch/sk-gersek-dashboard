@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK Gersek | School Dashboard</title>
+<style>
+:root{
+  --navy:#073b78; --blue:#0879d1; --yellow:#ffd21c; --sky:#eaf7ff;
+  --text:#17324d; --muted:#60758a; --white:#fff; --radius:20px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f9fc;color:var(--text)}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--navy);color:white;display:flex;align-items:center;gap:18px;padding:13px 28px;position:sticky;top:0;z-index:10}
+.brand-mini{font-weight:800;font-size:20px;margin-right:auto}
+.nav{display:flex;gap:20px;flex-wrap:wrap;font-weight:700;font-size:14px}
+.nav a{padding:7px 4px;border-bottom:3px solid transparent}
+.nav a:hover{border-color:var(--yellow)}
+.search{background:white;color:#777;border-radius:30px;padding:9px 15px;min-width:190px;font-size:13px}
+.hero{min-height:300px;background:linear-gradient(110deg,#dff5ff 0%,#fff 52%,#cdeeff 100%);position:relative;overflow:hidden;padding:42px 6vw;display:flex;align-items:center}
+.hero:after{content:"";position:absolute;right:-100px;bottom:-120px;width:520px;height:300px;background:var(--navy);border-radius:50% 50% 0 0/80% 80% 0 0;opacity:.95}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.logo{width:110px;height:110px;border:8px solid var(--yellow);border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;color:#8995a2;text-align:center;font-size:13px;font-weight:700;margin-bottom:15px}
+h1{font-size:clamp(44px,7vw,82px);line-height:.9;margin:0;color:var(--navy);letter-spacing:-3px}
+.tagline{font-size:22px;font-weight:700;color:#164b82;margin:15px 0 6px}
+.sub{font-size:16px;color:#49657d}
+.wave{position:absolute;left:0;bottom:-1px;width:100%;height:28px;background:var(--yellow);clip-path:polygon(0 45%,10% 15%,20% 60%,30% 20%,40% 70%,50% 30%,60% 65%,70% 20%,80% 65%,90% 15%,100% 50%,100% 100%,0 100%)}
+.container{max-width:1450px;margin:auto;padding:26px}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.card{padding:20px 15px;border-radius:var(--radius);min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 22px rgba(20,70,110,.08);transition:.2s}
+.card:hover{transform:translateY(-4px)}
+.card .icon{font-size:42px;margin-bottom:8px}
+.card h3{margin:4px 0;font-size:18px}.card p{margin:4px 0 14px;font-size:13px;color:#486276}
+.card button,.quick a{border:0;border-radius:22px;background:var(--navy);color:white;padding:9px 18px;font-weight:700;cursor:pointer}
+.pink{background:#ffe9f1}.blue{background:#e4f4ff}.green{background:#e2faed}.gold{background:#fff4ca}.purple{background:#eee7ff}.cyan{background:#def9fa}
+.layout{display:grid;grid-template-columns:1.15fr .85fr .85fr;gap:16px;margin-top:18px}
+.panel{background:white;border-radius:var(--radius);box-shadow:0 8px 22px rgba(20,70,110,.08);overflow:hidden}
+.panel-title{background:var(--navy);color:white;padding:15px 18px;font-size:19px;font-weight:800;display:flex;justify-content:space-between}
+.announcement{padding:15px 18px;border-bottom:1px solid #e7edf2;display:flex;gap:14px;align-items:flex-start}
+.date{background:#eaf3ff;color:#1264ae;border-radius:12px;padding:9px;text-align:center;font-weight:800;min-width:52px}.date b{font-size:18px;display:block}
+.announcement h4{margin:0 0 4px}.announcement p{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
+.quick{padding:15px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.quick a{display:block;text-align:center;padding:18px 8px;background:#eef7ff;color:var(--navy);border:1px solid #d9ebfa}
+.calendar{padding:18px}.month{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin-bottom:15px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:13px}.cal div{padding:8px}.head{font-weight:800;color:#6d8293}.today{background:var(--blue);color:white;border-radius:50%}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:15px}.photo{height:110px;border-radius:12px;background:linear-gradient(135deg,#bdeaff,#f9df83);display:flex;align-items:center;justify-content:center;color:#275577;font-weight:800}
+.footer{margin-top:30px;background:var(--navy);color:white;padding:24px 6vw;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer strong{color:var(--yellow)}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.nav{display:none}.topbar{padding:12px 16px}.hero{padding:35px 22px}.cards,.layout{grid-template-columns:1fr}.container{padding:16px}h1{font-size:52px}.search{display:none}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand-mini">🏫 SK GERSEK</div>
+  <nav class="nav">
+    <a href="#utama">Utama</a>
+    <a href="#akademik">Akademik</a>
+    <a href="#kokurikulum">Kokurikulum</a>
+    <a href="#pbd">PBD</a>
+    <a href="#ibu-bapa">Ibu Bapa</a>
+    <a href="#galeri">Galeri</a>
+    <a href="#hubungi">Hubungi</a>
+  </nav>
+  <div class="search">🔍 Cari di laman ini...</div>
+</header>
+
+<section class="hero" id="utama">
+  <div class="hero-content">
+    <div class="logo">LOGO<br>SEKOLAH<br><small>GANTI DI SINI</small></div>
+    <h1>SK GERSEK</h1>
+    <div class="tagline">Ilmu · Sahsiah · Kecemerlangan</div>
+    <div class="sub">Bersama Mendidik Generasi Masa Depan</div>
+  </div>
+  <div class="wave"></div>
+</section>
+
+<main class="container">
+<section class="cards">
+  <a class="card pink" href="#pbd"><div class="icon">📋</div><h3>PBD</h3><p>Pentaksiran Bilik Darjah</p><button>Lihat »</button></a>
+  <a class="card blue" href="#kehadiran"><div class="icon">📅</div><h3>Kehadiran Murid</h3><p>Rekod Kehadiran Harian</p><button>Lihat »</button></a>
+  <a class="card green" href="#akademik"><div class="icon">📚</div><h3>Akademik</h3><p>Prestasi & Pencapaian</p><button>Lihat »</button></a>
+  <a class="card gold" href="#kokurikulum"><div class="icon">🏆</div><h3>Kokurikulum</h3><p>Aktiviti & Pencapaian</p><button>Lihat »</button></a>
+  <a class="card purple" href="#pentadbiran"><div class="icon">👥</div><h3>Pentadbiran</h3><p>Maklumat Pentadbiran</p><button>Lihat »</button></a>
+  <a class="card cyan" href="#ibu-bapa"><div class="icon">💙</div><h3>Ibu Bapa</h3><p>Komunikasi & Perkongsian</p><button>Lihat »</button></a>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <div class="panel-title">📢 Pengumuman Terkini <span style="font-size:12px">Lihat semua →</span></div>
+    <div class="announcement"><div class="date"><b>20</b>Sep</div><div><h4>Makluman Aktiviti Sekolah</h4><p>Tambah pengumuman penting sekolah di ruangan ini.</p></div></div>
+    <div class="announcement"><div class="date"><b>25</b>Sep</div><div><h4>Program Akademik</h4><p>Masukkan maklumat program, masa dan lokasi di sini.</p></div></div>
+    <div class="announcement"><div class="date"><b>01</b>Okt</div><div><h4>Aktiviti Kokurikulum</h4><p>Kemas kini pengumuman dengan mudah melalui fail HTML ini.</p></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">🔗 Pautan Pantas</div>
+    <div class="quick">
+      <a href="#" target="_blank">🟢<br>Google Classroom</a>
+      <a href="#" target="_blank">🟡<br>Google Drive</a>
+      <a href="#" target="_blank">🟣<br>Borang & Dokumen</a>
+      <a href="#" target="_blank">🌐<br>Laman KPM</a>
+      <a href="#" target="_blank">📖<br>e-Perpustakaan</a>
+      <a href="#hubungi">💬<br>Hubungi Kami</a>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">📅 Kalendar Sekolah</div>
+    <div class="calendar">
+      <div class="month"><span>September 2026</span><span>‹ &nbsp; ›</span></div>
+      <div class="cal">
+        <div class="head">Is</div><div class="head">Sn</div><div class="head">Sl</div><div class="head">Rb</div><div class="head">Kh</div><div class="head">Jm</div><div class="head">Sb</div>
+        <div></div><div></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+        <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
+        <div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div>
+        <div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div>
+        <div>27</div><div>28</div><div>29</div><div>30</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="layout">
+  <div class="panel" id="galeri">
+    <div class="panel-title">🖼️ Galeri Aktiviti</div>
+    <div class="gallery">
+      <div class="photo">Foto Aktiviti 1</div><div class="photo">Foto Aktiviti 2</div>
+      <div class="photo">Foto Aktiviti 3</div><div class="photo">Foto Aktiviti 4</div>
+    </div>
+  </div>
+  <div class="panel" id="akademik">
+    <div class="panel-title">📊 Akademik</div>
+    <div style="padding:18px;line-height:1.7">Letakkan pautan dashboard akademik, graf prestasi, UASA atau Google Sheets di sini.</div>
+  </div>
+  <div class="panel" id="pbd">
+    <div class="panel-title">📝 PBD</div>
+    <div style="padding:18px;line-height:1.7">Letakkan pautan PBD, analisis Tahap Penguasaan dan intervensi Bahasa Melayu di sini.</div>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="hubungi">
+  <div><strong>SK GERSEK</strong><br>“Anak didik hari ini, pemimpin masa depan”</div>
+  <div>📍 Alamat sekolah &nbsp; | &nbsp; ☎ 03-XXXX XXXX &nbsp; | &nbsp; ✉️ email@sekolah.edu.my</div>
+</footer>
+</body>
+</html>
